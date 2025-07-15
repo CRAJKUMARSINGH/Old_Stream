@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Extra Items</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 10px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .extra-items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .extra-items-table th,
+        .extra-items-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .extra-items-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .text-left {
+            text-align: left;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+        .summary-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>EXTRA ITEMS</h2>
+        <p>Agreement No. {{ data.title_info.agreement_no }}</p>
+    </div>
+
+    {% if data.extra_items %}
+    <table class="extra-items-table">
+        <thead>
+            <tr>
+                <th width="10%">S.No.</th>
+                <th width="50%">Description</th>
+                <th width="8%">Unit</th>
+                <th width="10%">Quantity</th>
+                <th width="12%">Rate</th>
+                <th width="10%">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data.extra_items %}
+            <tr>
+                <td>{{ item.item_no }}</td>
+                <td class="text-left">{{ item.description }}</td>
+                <td>{{ item.unit }}</td>
+                <td>{{ item.quantity|format_number(2) }}</td>
+                <td>{{ item.rate|format_number(2) }}</td>
+                <td>{{ item.amount|format_number(2) }}</td>
+            </tr>
+            {% endfor %}
+            
+            <tr class="total-row">
+                <td colspan="4"><strong>Total Extra Items</strong></td>
+                <td><strong>{{ data.extra_items|sum(attribute='quantity')|format_number(2) }}</strong></td>
+                <td><strong>{{ data.extra_items|sum(attribute='amount')|format_number(2) }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary-section">
+        <table width="100%">
+            <tr>
+                <td width="60%"></td>
+                <td width="40%">
+                    <table border="1" width="100%">
+                        <tr>
+                            <td><strong>Total Extra Items Amount Rs.</strong></td>
+                            <td class="text-right"><strong>{{ data.extra_items|sum(attribute='amount')|format_number(2) }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Percentage of Extra Items</td>
+                            <td class="text-right">{{ ((data.extra_items|sum(attribute='amount')) / data.work_order_amount * 100)|format_number(2) }}%</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <p><strong>Note:</strong> All extra items have been approved by the competent authority.</p>
+        <p><strong>Justification:</strong> Extra items were necessary for the completion of the work as per site requirements.</p>
+    </div>
+    
+    {% else %}
+    <div style="text-align: center; margin-top: 50px;">
+        <p><strong>No Extra Items found in this bill.</strong></p>
+    </div>
+    {% endif %}
+</body>
+</html>

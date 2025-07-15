@@ -1,0 +1,245 @@
+
+## 📦 App Correction & Integration Task – Final Specification
+
+### ❗ Overview
+
+We have developed an initial version of an app that now requires your **expert debugging, refinement, and beautification**.
+
+Your task is to **test, correct, and enhance** the application using your **high-level development skills**, ensuring flawless functionality, production-readiness, and compliance with statutory formatting.
+
+---
+
+### 🧩 Core Problem Statement
+
+The current project contains a **partially functioning app** that must be:
+
+* Corrected and debugged
+* Consolidated into a **clean, modular, standalone script**
+* Integrated with the specified **document generation**, **table formatting**, and **output packaging** logic
+
+---
+
+#### 🔹 Key Input Specification
+
+* The app must take **only one input**: an **Excel file** uploaded by the user.
+* All data previously entered via sidebar UI is already included in the Excel file’s **`Title`** sheet.
+* ✅ Your task is to **intelligently extract** and use this input throughout the app with full precision.
+
+---
+
+#### 🔹 Mandatory Reference Templates
+
+Use the following reference templates for layout and compliance:
+
+* `refer1_first_page.html`
+* `refer1_deviation_statement.html`
+
+These templates define the **column structure**, **headers**, and **closing summary format** for:
+
+* The **First Page Summary**
+* The **Deviation Statement**
+
+---
+
+### 🛠️ Scope of Work
+
+#### 1. ✅ Functional Testing & Verification
+
+* Test the app using the four Excel files in the `test_files` folder.
+* Each file contains:
+
+  * `Title`
+  * `Work Order`
+  * `Bill Quantity`
+  * `Extra Items` (optional — must not break the app)
+
+For **each test file**:
+
+* Generate:
+
+  * Individual reports in **PDF**, **Word**, and **HTML** formats
+  * A **combined PDF** (merged in correct order)
+* Package all outputs into a single `.zip` per test file
+
+---
+
+#### 2. 🧩 App Debugging & Integration
+
+* Refactor and consolidate `app.py`:
+
+  * Fully functional and **self-contained**
+  * Follow modular architecture
+  * Production-ready and free of redundant logic
+
+* ✅ Reference `streamlit_app.py` for bill processing logic only — **not for UI**
+
+* Resolve current issues:
+
+  * **First Page** → no items are being populated
+  * **Deviation** → items 1 and 2 are not being populated
+
+---
+
+#### 3. 📦 Requirements File
+
+* Generate a clean, deduplicated `requirements.txt`:
+
+  * Include all required packages for **Windows compatibility**
+  * Exclude unused or deprecated libraries
+
+---
+
+#### 4. 🧹 Project Directory Cleanup
+
+Keep only:
+
+* Working code files
+* Valid templates
+* Required static assets (CSS, JS, icons)
+
+Delete:
+
+* Redundant, legacy, or unused files
+
+---
+
+#### 5. 📄 Document Formatting Standards
+
+**All output documents (PDF, DOCX, HTML)** must follow:
+
+* **Page Setup**:
+
+  * A4 size
+  * 10 mm margins (all sides)
+  * **Portrait orientation**, except:
+
+    * **Deviation Statement** → Landscape
+
+* **Date Format**:
+
+  * `dd/mm/yyyy` — **No time stamps**
+
+* **Presentation**:
+
+  * Clear visual structure
+  * Professional look, submission-ready
+
+---
+
+#### 6. 🎨 Template Polish & Column Width Specification
+
+Use or update templates with:
+
+* Consistent, clean typography
+* Proper spacing and branding
+* Legible table structure as per widths below
+
+---
+
+### 🔢 Column Width Specifications
+
+#### 📄 First Page Summary Table (from `refer1_first_page.html`)
+
+Use the following column widths (or equivalent ratio):
+
+```html
+<th width="11.7mm">Unit</th>
+<th width="16mm">Quantity executed (or supplied) since last certificate</th>
+<th width="16mm">Quantity executed (or supplied) upto date as per MB</th>
+<th width="11.1mm">Item No.</th>
+<th width="74.2mm">Item of Work supplies (Grouped under "sub-head" and "sub work" of estimate)</th>
+<th width="15.3mm">Rate</th>
+<th width="22.7mm">Amount upto date</th>
+<th width="17.6mm">Amount Since previous bill (Total for each sub-head)</th>
+<th width="13.9mm">Remark</th>
+```
+
+---
+
+#### 📄 Deviation Statement Table (from `refer1_deviation_statement.html`)
+
+Use these widths (or maintain equivalent visual proportions):
+
+```html
+<th width="6mm">ITEM No.</th>
+<th width="95mm">Description</th>
+<th width="10mm">Unit</th>
+<th width="10mm">Qty as per Work Order</th>
+<th width="12mm">Rate</th>
+<th width="12mm">Amt as per Work Order Rs.</th>
+<th width="12mm">Qty Executed</th>
+<th width="12mm">Amt as per Executed Rs.</th>
+<th width="12mm">Excess Qty</th>
+<th width="12mm">Excess Amt Rs.</th>
+<th width="12mm">Saving Qty</th>
+<th width="12mm">Saving Amt Rs.</th>
+<th width="40mm">REMARKS/ REASON.</th>
+```
+
+🧩 Note: Sections **2 and 3** of the deviation report are logically and structurally separate — handle them independently in the layout.
+
+---
+
+#### ⚙️ Output Logic Rules
+
+* **First Page & Deviation Statement**:
+
+  * Use **two decimal places** for:
+
+    * Quantity
+    * Rate
+    * Amount
+
+* **All Other Sections**:
+
+  * Round **Rates** and **Amounts** to nearest **whole number**
+  * **Note Sheet**:
+
+    * All figures to be rounded (no decimal)
+    * **GST deduction**: round up to next **even number**
+
+* Notes in the Note Sheet must be:
+
+  * Clearly visible
+  * **Single line spaced**
+  * Neatly aligned after table content
+
+---
+
+### ✅ Final Deliverables
+
+* ✅ Final and functional `app.py`
+
+* ✅ Clean project folder
+
+* ✅ `requirements.txt` file
+
+* ✅ For each of the 4 test Excel files:
+
+  * Individual reports (PDF, DOCX, HTML)
+  * Combined PDF
+  * Packaged `.zip`
+
+* ✅ Final `.zip` containing:
+
+  * App code
+  * Templates and assets
+  * All 4 `.zip` output archives
+
+---
+
+### 🔄 Next Steps
+
+Please confirm your understanding and readiness to proceed.
+
+Let us know if:
+
+* You need test files re-shared
+* You require clarification on any logic or layout
+* You want optional enhancements such as:
+
+  * GUI Beautification
+  * Auto-naming of output files
+
+#############################################################################
+further the data in work order and bill quantity has first row is header and othjer data in row 2 >>>>> all non-zero quanity items./sub items/sub-sub items need to be appeared in outputs >>>>irrespective of the the seroal number is blank or an entity

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Final Bill Scrutiny Sheet</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 10px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .scrutiny-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .scrutiny-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            vertical-align: top;
+        }
+        .sno-col {
+            width: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .particulars-col {
+            width: 60%;
+            text-align: left;
+        }
+        .details-col {
+            width: 35%;
+            text-align: left;
+        }
+        .notes-section {
+            margin-top: 30px;
+        }
+        .notes-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .note-item {
+            margin-bottom: 15px;
+            line-height: 1.0;
+        }
+        .deductions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .deductions-table td {
+            border: 1px solid #000;
+            padding: 3px;
+            text-align: left;
+        }
+        .amount-col {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>FINAL BILL SCRUTINY SHEET</h2>
+        <p>First & Final Bill Agreement No. {{ data.title_info.agreement_no }}</p>
+    </div>
+
+    <table class="scrutiny-table">
+        <tr>
+            <td class="sno-col">1</td>
+            <td class="particulars-col">Chargeable Head</td>
+            <td class="details-col">{{ data.title_info.chargeable_head|default('N/A') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">2</td>
+            <td class="particulars-col">Agreement No.</td>
+            <td class="details-col">{{ data.title_info.agreement_no }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">3</td>
+            <td class="particulars-col">Administrative Section</td>
+            <td class="details-col">{{ data.title_info.administrative_section|default('N/A') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">4</td>
+            <td class="particulars-col">Technical Section</td>
+            <td class="details-col">{{ data.title_info.technical_section|default('N/A') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">5</td>
+            <td class="particulars-col">M.B No.</td>
+            <td class="details-col">{{ data.title_info.measurement_book_no|default('N/A') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">6</td>
+            <td class="particulars-col">Name of Sub Division</td>
+            <td class="details-col">{{ data.title_info.subdivision_name|default('N/A') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">7</td>
+            <td class="particulars-col">Name of Work</td>
+            <td class="details-col">{{ data.title_info.work_name }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">8</td>
+            <td class="particulars-col">Name of Firm</td>
+            <td class="details-col">{{ data.title_info.contractor_name }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">9</td>
+            <td class="particulars-col">Original/Deposit</td>
+            <td class="details-col">{{ data.title_info.deposit_type|default('Deposit') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">10</td>
+            <td class="particulars-col">Whether any notice issued</td>
+            <td class="details-col">{{ data.title_info.notice_issued|default('No') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">11</td>
+            <td class="particulars-col">Date of Commencement</td>
+            <td class="details-col">{{ data.title_info.date_of_commencement|format_date }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">12</td>
+            <td class="particulars-col">Date of Completion</td>
+            <td class="details-col">{{ data.title_info.date_of_completion|format_date }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">13</td>
+            <td class="particulars-col">Actual Date of Completion</td>
+            <td class="details-col">{{ data.title_info.actual_completion_date|default(data.title_info.date_of_completion)|format_date }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">14</td>
+            <td class="particulars-col">In case of delay weather, Provisional Extension Granted</td>
+            <td class="details-col">{{ data.title_info.extension_granted|default('Work completed within stipulated time') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">15</td>
+            <td class="particulars-col">Whether any penalty imposed</td>
+            <td class="details-col">{{ data.title_info.penalty_imposed|default('No') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">16</td>
+            <td class="particulars-col">Amount of Work Order Rs.</td>
+            <td class="details-col">{{ data.work_order_amount|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">17</td>
+            <td class="particulars-col">Actual Expenditure up to this Bill Rs.</td>
+            <td class="details-col">{{ data.total_amount|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">18</td>
+            <td class="particulars-col">Balance to be done Rs.</td>
+            <td class="details-col">NIL</td>
+        </tr>
+        <tr>
+            <td class="sno-col">19</td>
+            <td class="particulars-col">Net Amount of This Bill Rs.</td>
+            <td class="details-col">{{ data.total_amount|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">20</td>
+            <td class="particulars-col">Prorata Progress on the Work maintained by the Firm</td>
+            <td class="details-col">Till date {{ ((data.total_amount / data.work_order_amount) * 100)|format_number(2) }}% Work is executed</td>
+        </tr>
+        <tr>
+            <td class="sno-col">21</td>
+            <td class="particulars-col">Date on Which record Measurement taken by JEN</td>
+            <td class="details-col">{{ data.title_info.measurement_date|default('')|format_date }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">22</td>
+            <td class="particulars-col">Date of Checking and % Checked By AEN</td>
+            <td class="details-col">{{ data.title_info.checking_percentage|default('100% checked') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">23</td>
+            <td class="particulars-col">No. Of selection item checked by the EE</td>
+            <td class="details-col">{{ data.title_info.items_checked|default('All items checked') }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">24</td>
+            <td class="particulars-col">Other Inputs</td>
+            <td class="details-col">
+                <table class="deductions-table">
+                    <tr>
+                        <td>(A) Is It a Repair / Maintenance Work</td>
+                        <td>{{ data.title_info.is_repair_work|default('No') }}</td>
+                    </tr>
+                    <tr>
+                        <td>(B) Extra Item</td>
+                        <td>{{ 'Yes' if data.extra_items else 'No' }}</td>
+                    </tr>
+                    {% if data.extra_items %}
+                    <tr>
+                        <td>Amount of Extra Items Rs.</td>
+                        <td class="amount-col">{{ (data.extra_items|sum(attribute='amount'))|format_number(0) }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td>(C) Any Excess Item Executed?</td>
+                        <td>{{ data.title_info.excess_items|default('No') }}</td>
+                    </tr>
+                    <tr>
+                        <td>(D) Any Inadvertent Delay in Bill Submission?</td>
+                        <td>{{ data.title_info.delay_in_submission|default('No') }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Deductions:</strong></td>
+                    </tr>
+                    <tr>
+                        <td>S.D. @ {{ data.deductions.sd_rate }}% Rs.</td>
+                        <td class="amount-col">{{ data.deductions.sd_amount|format_number(0) }}</td>
+                    </tr>
+                    <tr>
+                        <td>I.T. @ {{ data.deductions.it_rate }}% Rs.</td>
+                        <td class="amount-col">{{ data.deductions.it_amount|format_number(0) }}</td>
+                    </tr>
+                    <tr>
+                        <td>GST @ {{ data.deductions.gst_rate }}% Rs.</td>
+                        <td class="amount-col">{{ data.deductions.gst_amount|format_number(0) }}</td>
+                    </tr>
+                    <tr>
+                        <td>L.C. @ {{ data.deductions.lc_rate }}% Rs.</td>
+                        <td class="amount-col">{{ data.deductions.lc_amount|format_number(0) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Liquidated Damages (Recovery) Rs.</td>
+                        <td class="amount-col">{{ data.title_info.liquidated_damages|default('NIL') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Net Payable by Cheque Rs.</strong></td>
+                        <td class="amount-col"><strong>{{ data.net_payable|format_number(0) }}</strong></td>
+                    </tr>
+                </table>
+                <p style="text-align: right; margin-top: 10px;">
+                    <strong>Total Bill Amount Rs. {{ data.total_amount|format_number(0) }}</strong>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <div class="notes-section">
+        <div class="notes-title">NOTES:</div>
+        
+        <div class="note-item">
+            1. This is a first and final bill for the work completed.
+        </div>
+        
+        <div class="note-item">
+            2. All measurements have been verified and approved.
+        </div>
+        
+        <div class="note-item">
+            3. Work has been completed as per specifications.
+        </div>
+        
+        <div class="note-item">
+            4. No liquidated damages are applicable.
+        </div>
+        
+        <div class="note-item">
+            5. All statutory deductions have been made as per rules.
+        </div>
+    </div>
+</body>
+</html>

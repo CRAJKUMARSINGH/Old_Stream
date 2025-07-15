@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>First Page Summary</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.2;
+            margin: 0;
+            padding: 10px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .contractor-info {
+            margin-bottom: 15px;
+        }
+        .work-details {
+            margin-bottom: 15px;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .summary-table th,
+        .summary-table td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .summary-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .text-left {
+            text-align: left;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .amount-section {
+            margin-top: 20px;
+        }
+        .total-row {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>CONTRACTOR BILL</h2>
+        <p>FOR CONTRACTORS & SUPPLIERS ONLY FOR PAYMENT FOR WORK OR SUPPLIES ACTUALLY MEASURED</p>
+        <p>WORK ORDER</p>
+    </div>
+
+    <div class="contractor-info">
+        <p><strong>Cash Book Voucher No.</strong> _____________ <strong>Date:</strong> _____________</p>
+        <p><strong>Name of Contractor or supplier:</strong> {{ data.title_info.contractor_name }}</p>
+        <p><strong>Name of Work:</strong> {{ data.title_info.work_name }}</p>
+        <p><strong>Serial No. of this bill:</strong> First & Final Bill</p>
+        <p><strong>No. and date of the last bill:</strong> Not Applicable</p>
+    </div>
+
+    <div class="work-details">
+        <p><strong>Reference to work order or Agreement:</strong> {{ data.title_info.agreement_no }}</p>
+        <p><strong>Date of written order to commence work:</strong> {{ data.title_info.date_of_commencement|format_date }}</p>
+        <p><strong>Date of actual completion of work:</strong> {{ data.title_info.date_of_completion|format_date }}</p>
+        <p><strong>WORK ORDER AMOUNT RS.</strong> {{ data.work_order_amount|format_number(0) }}</p>
+    </div>
+
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th width="11.7mm">Unit</th>
+                <th width="16mm">Quantity executed (or supplied) since last certificate</th>
+                <th width="16mm">Quantity executed (or supplied) upto date as per MB</th>
+                <th width="11.1mm">Item No.</th>
+                <th width="74.2mm">Item of Work supplies (Grouped under "sub-head" and "sub work" of estimate)</th>
+                <th width="15.3mm">Rate</th>
+                <th width="22.7mm">Amount upto date</th>
+                <th width="17.6mm">Amount Since previous bill (Total for each sub-head)</th>
+                <th width="13.9mm">Remark</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data.bill_quantity_items %}
+            <tr>
+                <td>{{ item.unit }}</td>
+                <td>{{ item.quantity|format_number(2) }}</td>
+                <td>{{ item.quantity|format_number(2) }}</td>
+                <td>{{ item.item_no }}</td>
+                <td class="text-left">{{ item.description }}</td>
+                <td>{{ item.rate|format_number(2) }}</td>
+                <td>{{ item.amount|format_number(2) }}</td>
+                <td>{{ item.amount|format_number(2) }}</td>
+                <td>{{ item.remark|default('') }}</td>
+            </tr>
+            {% endfor %}
+            
+            {% if data.extra_items %}
+            <tr class="total-row">
+                <td colspan="4"></td>
+                <td class="text-left"><strong>Extra Items (With Premium)</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% for item in data.extra_items %}
+            <tr>
+                <td>{{ item.unit }}</td>
+                <td>{{ item.quantity|format_number(2) }}</td>
+                <td>{{ item.quantity|format_number(2) }}</td>
+                <td>{{ item.item_no }}</td>
+                <td class="text-left">{{ item.description }}</td>
+                <td>{{ item.rate|format_number(2) }}</td>
+                <td>{{ item.amount|format_number(2) }}</td>
+                <td>{{ item.amount|format_number(2) }}</td>
+                <td>{{ item.remark|default('') }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    <div class="amount-section">
+        <table width="100%">
+            <tr>
+                <td width="60%"></td>
+                <td width="40%">
+                    <table border="1" width="100%">
+                        <tr>
+                            <td><strong>Grand Total Rs.</strong></td>
+                            <td class="text-right"><strong>{{ data.total_amount|format_number(2) }}</strong></td>
+                        </tr>
+                        {% if data.extra_items %}
+                        <tr>
+                            <td>Sum of Extra Items Rs.</td>
+                            <td class="text-right">{{ (data.extra_items|sum(attribute='amount'))|format_number(2) }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td><strong>Payable Amount Rs.</strong></td>
+                            <td class="text-right"><strong>{{ data.total_amount|format_number(2) }}</strong></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

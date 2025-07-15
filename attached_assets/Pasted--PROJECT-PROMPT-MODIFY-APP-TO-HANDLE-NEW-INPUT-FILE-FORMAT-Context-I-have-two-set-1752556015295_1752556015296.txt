@@ -1,0 +1,62 @@
+
+**PROJECT PROMPT: MODIFY APP TO HANDLE NEW INPUT FILE FORMAT**
+
+**Context:**
+
+* I have two sets of sample test files:
+
+  * **Old Pattern Files** (without title sheet) — previously supported by my app.
+  * **New Pattern Files** (contain a title sheet as the first sheet) — need support now.
+
+* My existing application (available at **GitHub1**) processes only the **Old Pattern Files**.
+
+* I want to **update/convert** this application to handle the **New Pattern Files** format directly.
+
+---
+
+**Requirements:**
+
+1. **File Upload**:
+
+   * The **only user interaction** should be **uploading the file**.
+   * No further manual inputs from users should be required.
+   * Processing must auto-detect the format (presence of title sheet).
+
+2. **Input File Handling**:
+
+   * **New Pattern Input**:
+
+     * Identify and handle the **title sheet** (present as the first sheet).
+     * Skip or parse the title sheet as instructed in the `OVERALL_VIEW.TXT` file.
+     * Process subsequent sheets similarly to old files but adapt as needed per the new structure.
+
+3. **Code Conversion**:
+
+   * Update/refactor the app (code at **https://github.com/CRAJKUMARSINGH/Stream-Bill-generator**) to:
+
+     * Replace or modify functions handling file reading/parsing.
+     * Remove any input prompts or manual entry dependencies.
+     * Ensure fully automated processing once a file is uploaded.
+
+4. **Logic & Process Flow**:
+
+   * Follow all processing and structural guidelines from the **`OVERALL_VIEW.TXT` file**.
+   * Ensure all validation, calculations, or data extraction steps work for the new file style.
+
+5. **Delivery Expectations**:
+
+   * Provide the **full refactored code** (ideally in the same programming language as GitHub1).
+   * Keep the architecture modular for future updates.
+   * Include clear comments explaining the handling of title sheet and any major changes.
+
+---
+
+**Supporting Files Provided:**
+
+* **Two sets of test files** (Old and New Pattern).
+* **`OVERALL_VIEW.TXT`** with detailed processing instructions.
+* **GitHub1 Link** to existing tested app code (Old Pattern support).
+
+---
+
+Let me know if you'd like this rewritten in a more technical or less formal style.

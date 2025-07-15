@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Memorandum of Payments</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 10px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .memorandum-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .memorandum-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            vertical-align: top;
+        }
+        .sno-col {
+            width: 40px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .description-col {
+            width: 60%;
+            text-align: left;
+        }
+        .entry-col {
+            width: 80px;
+            text-align: center;
+        }
+        .amount-col {
+            width: 80px;
+            text-align: right;
+        }
+        .indent {
+            margin-left: 20px;
+        }
+        .payment-amount {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+        .payment-words {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .signature-section {
+            margin-top: 30px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 200px;
+            margin: 20px 0 5px 0;
+        }
+        .blank-line {
+            display: inline-block;
+            width: 100px;
+            border-bottom: 1px solid #000;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>III. MEMORANDUM OF PAYMENTS</h2>
+    </div>
+
+    <table class="memorandum-table">
+        <tr>
+            <td class="sno-col"><strong>S.No.</strong></td>
+            <td class="description-col"><strong>Description</strong></td>
+            <td class="entry-col"><strong>Entry No.</strong></td>
+            <td class="amount-col"><strong>Amount Rs.</strong></td>
+        </tr>
+        <tr>
+            <td class="sno-col">1.</td>
+            <td class="description-col">Total value of work actually measured, as per Account I, Col. 5, Entry [A]</td>
+            <td class="entry-col">[A]</td>
+            <td class="amount-col">{{ data.total_amount|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">2.</td>
+            <td class="description-col">
+                Total up-to-date advance payments for work not yet measured as per details given below:
+                <div class="indent">(a) Total as per previous bill</div>
+                <div class="indent">(b) Since previous bill</div>
+            </td>
+            <td class="entry-col">
+                <br>
+                [B]<br>
+                [D]
+            </td>
+            <td class="amount-col">
+                <br>
+                Nil<br>
+                Nil
+            </td>
+        </tr>
+        <tr>
+            <td class="sno-col">3.</td>
+            <td class="description-col">Total up-to-date secured advances on security of materials</td>
+            <td class="entry-col">[C]</td>
+            <td class="amount-col">Nil</td>
+        </tr>
+        <tr>
+            <td class="sno-col">4.</td>
+            <td class="description-col">Total (Items 1 + 2 + 3) A+B+C</td>
+            <td class="entry-col"></td>
+            <td class="amount-col">{{ data.total_amount|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: center; font-weight: bold; background-color: #f0f0f0;">
+                Figures for works abstract
+            </td>
+        </tr>
+        <tr>
+            <td class="sno-col">5.</td>
+            <td class="description-col">
+                Deduct: Amount withheld
+                <div class="indent">(a) From previous bill as per last Running Account Bill</div>
+                <div class="indent">(b) From this bill</div>
+            </td>
+            <td class="entry-col">
+                <br>
+                [5]<br>
+                
+            </td>
+            <td class="amount-col">
+                <br>
+                Nil<br>
+                Nil
+            </td>
+        </tr>
+        <tr>
+            <td class="sno-col">6.</td>
+            <td class="description-col">Balance i.e. "up-to-date" payments (Item 4-5)</td>
+            <td class="entry-col"></td>
+            <td class="amount-col">{{ data.total_amount|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col">7.</td>
+            <td class="description-col">Total amount of payments already made as per Entry (K)</td>
+            <td class="entry-col">[K]</td>
+            <td class="amount-col">0</td>
+        </tr>
+        <tr>
+            <td class="sno-col">8.</td>
+            <td class="description-col">Payments now to be made, as detailed below:</td>
+            <td class="entry-col"></td>
+            <td class="amount-col">{{ data.net_payable|format_number(0) }}</td>
+        </tr>
+        <tr>
+            <td class="sno-col"></td>
+            <td class="description-col">
+                <div class="indent">(a) By recovery of amounts creditable to this work</div>
+                <div class="indent" style="margin-left: 40px;">SD @ {{ data.deductions.sd_rate }}%</div>
+                <div class="indent" style="margin-left: 40px;">IT @ {{ data.deductions.it_rate }}%</div>
+                <div class="indent" style="margin-left: 40px;">GST @ {{ data.deductions.gst_rate }}%</div>
+                <div class="indent" style="margin-left: 40px;">LC @ {{ data.deductions.lc_rate }}%</div>
+                <div class="indent" style="margin-left: 40px;">Total recovery</div>
+            </td>
+            <td class="entry-col">
+                [a]<br>
+                <br>
+                <br>
+                <br>
+                <br>
+                
+            </td>
+            <td class="amount-col">
+                <br>
+                {{ data.deductions.sd_amount|format_number(0) }}<br>
+                {{ data.deductions.it_amount|format_number(0) }}<br>
+                {{ data.deductions.gst_amount|format_number(0) }}<br>
+                {{ data.deductions.lc_amount|format_number(0) }}<br>
+                {{ data.deductions.total_deductions|format_number(0) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="sno-col"></td>
+            <td class="description-col">
+                <div class="indent">(b) By recovery of amount creditable to other works</div>
+                <div class="indent">(c) By cheque</div>
+            </td>
+            <td class="entry-col">
+                [b]<br>
+                [c]
+            </td>
+            <td class="amount-col">
+                Nil<br>
+                {{ data.net_payable|format_number(0) }}
+            </td>
+        </tr>
+    </table>
+
+    <div class="payment-amount">
+        Pay Rs. {{ data.net_payable|format_number(0) }}
+    </div>
+
+    <div class="payment-words">
+        Pay Rupees {{ data.net_payable|number_to_words }} (by cheque)
+    </div>
+
+    <div class="signature-section">
+        <p>
+            Dated the <span class="blank-line"></span> 20<span class="blank-line"></span>
+        </p>
+        <div style="float: right; width: 300px;">
+            <div class="signature-line"></div>
+            <div style="text-align: center;">Dated initials of Disbursing Officer</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <p>
+            Received Rupees {{ data.net_payable|number_to_words }} (by cheque) as per above memorandum, on account of this bill
+        </p>
+        <div style="float: right; width: 300px; margin-top: 30px;">
+            <div class="signature-line"></div>
+            <div style="text-align: center;">Signature of Contractor</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <p>
+            Paid by me, vide cheque No. <span class="blank-line"></span> dated <span class="blank-line"></span> 20<span class="blank-line"></span>
+        </p>
+        <div style="float: right; width: 300px; margin-top: 30px;">
+            <div class="signature-line"></div>
+            <div style="text-align: center;">Dated initials of person actually making the payment</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</body>
+</html>

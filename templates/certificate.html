@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Certificate and Signatures</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 10px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .certificate-content {
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+        .signature-section {
+            margin-top: 50px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 300px;
+            margin: 40px 0 10px 0;
+        }
+        .signature-text {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .measurement-info {
+            margin-bottom: 20px;
+        }
+        .blank-line {
+            display: inline-block;
+            width: 100px;
+            border-bottom: 1px solid #000;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>II. CERTIFICATE AND SIGNATURES</h2>
+    </div>
+
+    <div class="measurement-info">
+        <p>
+            The measurements on which are based the entries in columns 1 to 6 of Account I, were made by 
+            <span class="blank-line"></span> on <span class="blank-line"></span>, 
+            and are recorded at page <span class="blank-line"></span> of Measurement Book No. 
+            <strong>{{ data.title_info.measurement_book_no }}</strong>
+        </p>
+    </div>
+
+    <div class="certificate-content">
+        <p>
+            *Certified that in addition to and quite apart from the quantities of work actually executed, 
+            as shown in column 4 of Account I, some work has actually been done in connection with several 
+            items and the value of such work (after deduction therefrom the proportionate amount of secured 
+            advances, if any, ultimately recoverable on account of the quantities of materials used therein) 
+            is in no case, less than the advance payments as per item 2 of the Memorandum, if payment is made.
+        </p>
+
+        <p>
+            +Certified that the contractor has made satisfactory progress with the work, and that the 
+            quantities and amounts claimed are correct and the work has been executed in accordance with 
+            the specifications and the terms of the contract.
+        </p>
+
+        <p>
+            I also certify that the amount claimed is not more than the amount admissible under the contract.
+        </p>
+    </div>
+
+    <div class="signature-section">
+        <div style="float: right; width: 300px; margin-top: 60px;">
+            <div class="signature-line"></div>
+            <div class="signature-text">Dated signature of officer preparing the bill</div>
+        </div>
+        
+        <div style="clear: both;"></div>
+        
+        <div style="float: right; width: 300px; margin-top: 60px;">
+            <div class="signature-line"></div>
+            <div class="signature-text">+Dated signature of officer authorising payment</div>
+        </div>
+        
+        <div style="clear: both;"></div>
+    </div>
+
+    <div style="margin-top: 100px;">
+        <p><strong>Work Details:</strong></p>
+        <p><strong>Agreement No.:</strong> {{ data.title_info.agreement_no }}</p>
+        <p><strong>Work Name:</strong> {{ data.title_info.work_name }}</p>
+        <p><strong>Contractor:</strong> {{ data.title_info.contractor_name }}</p>
+        <p><strong>Total Bill Amount:</strong> ₹{{ data.total_amount|format_number(0) }}</p>
+        <p><strong>Date of Completion:</strong> {{ data.title_info.date_of_completion|format_date }}</p>
+    </div>
+</body>
+</html>
