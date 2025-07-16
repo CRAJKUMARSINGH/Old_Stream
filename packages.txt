@@ -1,0 +1,4 @@
+streamlit==1.46.1
+weasyprint==65.1
+pandas==2.3.1
+# Add other dependencies as needed
